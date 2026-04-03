@@ -2,14 +2,30 @@
 
 interface FooterColumn {
   title: string;
-  items: string[];
+  items: { label: string; href: string }[];
 }
 
 export function Footer() {
   const cols: FooterColumn[] = [
-    { title: "الرحلات", items: ["الرحلات الداخلية", "الرحلات الدينية", "الطيران", "العروض الخاصة"] },
-    { title: "الوجهات", items: ["شرم الشيخ", "الغردقة", "أسوان", "الأقصر", "مكة المكرمة"] },
-    { title: "الشركة", items: ["من نحن", "تواصل معنا", "سياسة الخصوصية", "الشروط والأحكام"] },
+    { title: "الرحلات", items: [
+      { label: "الرحلات الداخلية", href: "/search?cat=domestic" },
+      { label: "الرحلات الدينية", href: "/search?cat=religious" },
+      { label: "الطيران", href: "/search?cat=flight" },
+      { label: "العروض الخاصة", href: "/search" }
+    ] },
+    { title: "الوجهات", items: [
+      { label: "شرم الشيخ", href: "/trips/sharm-el-sheikh" },
+      { label: "الغردقة", href: "/search?query=الغردقة" },
+      { label: "أسوان", href: "/search?query=أسوان" },
+      { label: "الأقصر", href: "/search?query=الأقصر" },
+      { label: "مكة المكرمة", href: "/search?query=مكة" }
+    ] },
+    { title: "الشركة", items: [
+      { label: "من نحن", href: "/" },
+      { label: "تواصل معنا", href: "/contact" },
+      { label: "سياسة الخصوصية", href: "#" },
+      { label: "الشروط والأحكام", href: "#" }
+    ] },
   ];
   return (
     <footer style={{ background: "linear-gradient(180deg,#060f2e 0%,#081a4b 100%)" }}>
@@ -60,7 +76,7 @@ export function Footer() {
               <p className="text-white font-black text-sm mb-4">{col.title}</p>
               <ul className="space-y-2.5">
                 {col.items.map(item => (
-                  <li key={item}><a href="#" className="footer-link hover:text-yellow-400 transition-colors">{item}</a></li>
+                  <li key={item.label}><a href={item.href} className="footer-link hover:text-yellow-400 transition-colors">{item.label}</a></li>
                 ))}
               </ul>
             </div>
