@@ -10,12 +10,7 @@ export function WhyUs() {
       style={{ background: "linear-gradient(135deg,#081a4b 0%,#1565C0 100%)" }}>
       <div className="absolute inset-0 stars-bg" />
       
-      {/* Dynamic Blobs */}
-      <div className="absolute top-0 -left-20 w-[500px] h-[500px] rounded-full pointer-events-none animate-blob opacity-20"
-        style={{ background: "radial-gradient(circle,#F59E0B,transparent)" }} />
-      <div className="absolute -bottom-20 -right-20 w-[400px] h-[400px] rounded-full pointer-events-none animate-blob opacity-20"
-        style={{ background: "radial-gradient(circle,#06B6D4,transparent)", animationDelay: "-4s" }} />
-
+        
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Modern Header Layout */}
         <div className="flex flex-col lg:flex-row items-end justify-between gap-8 mb-20 px-4"

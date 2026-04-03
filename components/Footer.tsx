@@ -32,7 +32,7 @@ export function Footer() {
       {/* Wave */}
       <div style={{ lineHeight: 0 }}>
         <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: "block", width: "100%" }}>
-          <path fill="#081a4b" d="M0,20 C360,60 1080,0 1440,40 L1440,0 L0,0 Z" />
+          <path fill="#f8faff" d="M0,20 C360,60 1080,0 1440,40 L1440,0 L0,0 Z" />
         </svg>
       </div>
       <div className="max-w-7xl mx-auto px-5 pt-6 pb-12" dir="rtl">

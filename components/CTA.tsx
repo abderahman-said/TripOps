@@ -6,7 +6,7 @@ export function CTA() {
   const [ref, inView] = useInView();
   return (
     <section id="contact" ref={ref} className="py-20 px-4"
-      style={{ background: "linear-gradient(135deg,#f0f6ff,#e8f0fe)" }}>
+      >
       <div className="max-w-4xl mx-auto">
         <div className="relative overflow-hidden rounded-3xl p-10 md:p-16 text-center"
           style={{
