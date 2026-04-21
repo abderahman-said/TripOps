@@ -18,7 +18,7 @@ export default function AboutPage() {
   ];
 
   return (
-     <div className="  min-h-screen">
+     <div className="min-h-screen" dir="rtl">
       {/* Hero Section */}
       <section className="relative min-h-[450px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -32,8 +32,8 @@ export default function AboutPage() {
         <h1 className="text-white font-black leading-tight mb-4" style={{ fontSize: "clamp(2.5rem,8vw,5rem)" }}>
           تعرف على <span className="shimmer-text">{settings?.name || "الرحمن تورز"}</span>
         </h1>
-        <p className="text-white/70 max-w-2xl mx-auto text-lg leading-relaxed">
-       قصة نجاح بدأت بشغف وتستمر بثقتكم
+        <p className="text-white/70 max-w-2xl mx-auto text-base md:text-lg leading-relaxed px-4">
+          نحن نوفر لك أفضل تجربة سفر سياحية في مصر، مع التركيز على الجودة والراحة والأسعار التنافسية.
         </p>
       </div>
 
@@ -54,13 +54,13 @@ export default function AboutPage() {
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-[#081a4b] mb-8">نحن لا نصنع رحلات، بل <span className="text-blue-600">نصنع ذكريات لا تُنسى</span></h2>
           <div 
-            className="prose prose-lg text-gray-600 leading-relaxed font-tajawal max-w-none prose-p:mb-4"
-            dangerouslySetInnerHTML={{ __html: settings?.about_us || "<p>شركة رائدة في مجال السياحة والسفر، نسعى لتقديم أفضل الخدمات لعملائنا.</p>" }} 
+            className="prose prose-lg text-gray-600 leading-relaxed font-tajawal max-w-none prose-p:mb-4 text-right"
+            dangerouslySetInnerHTML={{ __html: settings?.about_us || "<p>شركة رائدة في مجال السياحة والسفر، نسعى لتقديم أفضل الخدمات لعملائنا وتقديم تجارب فريدة لا تُنسى في أجمل الوجهات المصرية.</p>" }} 
           />
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80" className="rounded-3xl shadow-xl h-64 w-full object-cover mt-12" alt="Travel" />
-          <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80" className="rounded-3xl shadow-xl h-80 w-full object-cover" alt="Luxury" />
+        <div className="grid grid-cols-2 gap-3 md:gap-4">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80" className="rounded-2xl md:rounded-3xl shadow-xl h-48 md:h-64 w-full object-cover mt-8 md:mt-12" alt="Travel" />
+          <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80" className="rounded-2xl md:rounded-3xl shadow-xl h-60 md:h-80 w-full object-cover" alt="Luxury" />
         </div>
       </section>
 

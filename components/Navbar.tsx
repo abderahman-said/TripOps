@@ -8,7 +8,6 @@ import {
   Monitor,
   ChevronDown,
   Plane,
-  Youtube
 } from "lucide-react";
 
 import { useSiteSettings } from "@/hooks/useSiteSettings";
@@ -77,11 +76,11 @@ export function Navbar() {
       className="fixed top-0 w-full z-[100] transition-all duration-500"
       style={{
         background: scrolled
-          ? "rgba(8,26,75,0.97)"
-          : "linear-gradient(180deg,rgba(8,26,75,0.9) 0%,rgba(21,101,192,0.5) 100%)",
-        backdropFilter: scrolled ? "blur(24px)" : "blur(0px)",
-        boxShadow: scrolled ? "0 2px 40px rgba(8,26,75,0.5)" : "none",
-        padding: scrolled ? "8px 0" : "14px 0",
+          ? "rgba(8,26,75,0.99)" // Near solid on scroll for better readability
+          : "linear-gradient(180deg,rgba(8,26,75,0.95) 0%,rgba(21,101,192,0.4) 100%)",
+        backdropFilter: scrolled ? "blur(20px)" : "blur(12px)",
+        boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.3)" : "none",
+        padding: scrolled ? "10px 0" : "16px 0",
       }}
     >
       <div className="max-w-7xl mx-auto px-5 flex items-center justify-between">
@@ -166,8 +165,8 @@ export function Navbar() {
 
       {/* Mobile menu */}
       <div style={{ maxHeight: mobileOpen ? "520px" : "0", opacity: mobileOpen ? 1 : 0, overflow: "hidden", transition: "max-height .35s ease, opacity .3s ease" }}>
-        <div className="px-5 py-4 flex flex-col gap-1 border-t border-white/8 overflow-y-auto"
-          style={{ background: "rgba(8,26,75,0.98)", borderColor: "rgba(255,255,255,0.08)", maxHeight: "500px" }}>
+        <div className="px-5 py-6 flex flex-col gap-2 border-t border-white/10 overflow-y-auto"
+          style={{ background: "rgba(8,26,75,1)", borderColor: "rgba(255,255,255,0.1)", maxHeight: "calc(100vh - 80px)" }}>
           {NAV.map((item) => (
             <div key={item.label} className="flex flex-col">
               <div className="flex items-center justify-between">

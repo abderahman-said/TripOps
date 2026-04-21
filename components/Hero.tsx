@@ -111,8 +111,8 @@ export function Hero() {
         {/* Headline */}
         <h1 className="leading-none flex justify-center gap-2" style={{ letterSpacing: "-0.025em" }}>
           {[s.line1, s.line2].map((word, wi) => (
-            <div key={`${cur}-${wi}`} className="animate-floatUp  pb-4 overflow-hidden block"
-              style={{ animationDelay: `${.18 + wi * .16}s`, fontSize: "clamp(2rem,5vw,5rem)", fontWeight: 900 }}>
+            <div key={`${cur}-${wi}`} className="animate-floatUp pb-3 md:pb-4 overflow-hidden block"
+              style={{ animationDelay: `${.18 + wi * .16}s`, fontSize: "clamp(1.75rem,8vw,5rem)", fontWeight: 900 }}>
               {wi === 0
                 ? <span className="shimmer-text">{word}</span>
                 : <span style={{ color: "white" }}>{word}</span>
@@ -203,14 +203,14 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Quick tags */}
-          <div className="flex flex-wrap justify-center gap-2 mt-3">
-            {cities.slice(0, 6).map(city => (
+          {/* Quick tags - Modern Horizontal Scroll on Mobile */}
+          <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 mt-4 px-2 overflow-x-auto no-scrollbar pb-2">
+            {cities.slice(0, 8).map(city => (
               <button
                 key={city.id}
                 onClick={() => setQuery(city.name)}
-                className="px-4 py-1.5 rounded-full text-xs font-semibold text-white/75 hover:text-white transition-all hover:scale-105"
-                style={{ background: "rgba(255,255,255,0.09)", border: "1px solid rgba(255,255,255,0.18)" }}
+                className="px-5 py-2 rounded-full text-xs font-bold text-white/80 hover:text-white transition-all hover:scale-105 whitespace-nowrap shrink-0"
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(8px)" }}
               >
                 {city.name}
               </button>

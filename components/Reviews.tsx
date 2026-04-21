@@ -96,10 +96,10 @@ export function Reviews() {
           >
             {reviews.map((r) => (
               <SwiperSlide key={r.id} className="py-8 md:py-12">
-                <div className="review-card glass-dark group relative rounded-[2rem] md:rounded-[3rem] p-6 md:p-8 transition-all duration-700 hover:-translate-y-4 border border-white/5 hover:border-yellow-400/20 shadow-2xl overflow-hidden" 
-                     style={{ minHeight: "400px", display: 'flex', flexDirection: 'column', 
+                <div className="review-card glass-dark group relative rounded-[2rem] md:rounded-[3rem] p-5 md:p-8 transition-all duration-700 hover:-translate-y-4 border border-white/5 hover:border-yellow-400/20 shadow-2xl overflow-hidden" 
+                     style={{ minHeight: "350px", mdMinHeight: "400px", display: 'flex', flexDirection: 'column', 
                      background: "radial-gradient(circle at 50% 50%, #0a2463 0%, #081a4b 100%)",
-                     backdropFilter: "blur(40px)" }}>
+                     backdropFilter: "blur(40px)" } as any}>
                   
                   {/* Media Content Background */}
                   <div className="absolute inset-0 z-0 opacity-40 group-hover:opacity-60 transition-opacity duration-700">

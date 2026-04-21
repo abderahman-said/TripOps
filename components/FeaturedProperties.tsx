@@ -81,7 +81,7 @@ export function FeaturedProperties() {
                 <SwiperSlide key={property.id}>
                   <Link
                     href={`/properties/${toSlug(property.id, property.name)}`}
-                    className="block group relative h-[400px] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+                    className="block group relative h-[320px] md:h-[400px] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
                   >
                     <img
                       src={property.cover}
@@ -91,18 +91,17 @@ export function FeaturedProperties() {
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <div className="flex items-center gap-2 text-white/70 text-xs mb-2">
+                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-right">
+                      <div className="flex items-center justify-end gap-2 text-white/70 text-[10px] md:text-xs mb-2">
                         <span>{property.city.name}</span>
                         <MapPin className="w-3 h-3" />
-                        <span className="mx-1">•</span>
+                        <span className="mx-1 opacity-40">•</span>
                         <span>{property.type.label}</span>
-
                       </div>
 
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-white font-black text-xl">{property.name}</h3>
-                        <ChevronRight className="w-5 h-5 scale-x-[-1] text-white opacity-0 group-hover:opacity-100 group-hover:-translate-x-2 transition-all duration-300" />
+                      <div className="flex items-center justify-between gap-3">
+                        <ChevronRight className="w-5 h-5 scale-x-[-1] text-white opacity-0 group-hover:opacity-100 group-hover:-translate-x-2 transition-all duration-300 hidden md:block" />
+                        <h3 className="text-white font-black text-lg md:text-xl line-clamp-1">{property.name}</h3>
                       </div>
                     </div>
                   </Link>
