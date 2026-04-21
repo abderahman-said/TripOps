@@ -2,9 +2,7 @@
 
 import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WAButton } from "@/components/WAButton";
+
 import { useProperties } from "@/hooks/useProperties";
 import { useCities } from "@/hooks/useCities";
 import { toSlug } from "@/lib/slug";
@@ -337,19 +335,15 @@ function SearchContent() {
 
 export default function SearchPage() {
   return (
-    <main className="min-h-screen bg-[#f8faff]">
-      <Navbar />
-      <Suspense
-        fallback={
-          <div className="h-screen flex items-center justify-center">
-            تحميل...
-          </div>
-        }
-      >
-        <SearchContent />
-      </Suspense>
-      <Footer />
-      <WAButton />
-    </main>
+    <Suspense
+      fallback={
+        <div className="h-screen flex items-center justify-center text-[#081a4b]">
+          <div className="animate-spin w-8 h-8 border-4 border-current border-t-transparent rounded-full" />
+        </div>
+      }
+    >
+      <SearchContent />
+    </Suspense>
   );
 }
+

@@ -85,7 +85,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-5">
               {settings?.logo ? (
-                <div className="w-12 h-12 rounded-xl overflow-hidden bg-white p-1">
+                <div className="w-20 h-16 rounded-xl overflow-hidden bg-white p-1">
                   <img src={settings.logo} alt={settings.name} className="w-full h-full object-contain" />
                 </div>
               ) : (
@@ -94,10 +94,7 @@ export function Footer() {
                   {settings?.name ? settings.name.charAt(0) : "."}
                 </div>
               )}
-              <div>
-                <p className="text-white font-black text-xl">{settings?.name || "amr "}</p>
-                <p className="text-yellow-400 text-[10px] tracking-[.18em]">{settings?.name ? settings.name.toUpperCase() : "AL-RAHMAAN TOURS"}</p>
-              </div>
+              
             </div>
             <p className="text-sm leading-relaxed mb-6 max-w-xs"
               style={{ color: "rgba(147,197,253,.55)" }}>

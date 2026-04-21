@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { useParams } from "next/navigation";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WAButton } from "@/components/WAButton";
+
 import { useProperty } from "@/hooks/useProperty";
 import Link from "next/link";
 import {
@@ -32,66 +30,39 @@ export default function PropertyPage() {
 
   if (!slug) {
     return (
-      <main className="min-h-screen" style={{ background: "#0a0e1a" }}>
-        <Navbar />
-        <div className="flex justify-center items-center min-h-[70vh]">
-          <p className="text-white/50">لم يتم العثور على العقار</p>
-        </div>
-        <Footer />
-        <WAButton />
-      </main>
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <p className="text-gray-400">لم يتم العثور على الوحدة</p>
+      </div>
     );
   }
+
 
   if (isLoading) {
     return (
-      <main className="min-h-screen">
-        <Navbar />
-        <div className="flex justify-center items-center min-h-[70vh]">
-          <div className="text-center space-y-4">
-            <div className="relative w-16 h-16 mx-auto">
-              <div className="absolute inset-0 rounded-full border-2 border-[#c9a96e]/20" />
-              <div
-                className="absolute inset-0 rounded-full border-t-2 animate-spin"
-                style={{ borderColor: "#c9a96e" }}
-              />
-            </div>
-            <p
-              className="text-sm tracking-widest uppercase"
-              style={{ color: "#c9a96e", fontFamily: "serif" }}
-            >
-              جاري التحميل
-            </p>
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <div className="text-center space-y-4">
+          <div className="relative w-16 h-16 mx-auto">
+            <div className="absolute inset-0 rounded-full border-2 border-blue-100" />
+            <div className="absolute inset-0 rounded-full border-t-2 border-blue-600 animate-spin" />
           </div>
+          <p className="text-[#081a4b] font-bold">جاري التحميل...</p>
         </div>
-        <Footer />
-        <WAButton />
-      </main>
+      </div>
     );
   }
 
+
   if (error || !property) {
     return (
-      <main className="min-h-screen" style={{ background: "#f7f5f0" }}>
-        <Navbar />
-        <div className="flex justify-center items-center min-h-[70vh]">
-          <div className="text-center">
-            <h3
-              className="text-2xl font-bold mb-3"
-              style={{ color: "#081a4b" }}
-            >
-              حدث خطأ أثناء تحميل البيانات
-            </h3>
-            <p className="text-gray-400">
-              {error?.message || "لم يتم العثور على العقار"}
-            </p>
-          </div>
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <div className="text-center">
+          <h3 className="text-2xl font-black text-[#081a4b] mb-3">حدث خطأ أثناء تحميل البيانات</h3>
+          <p className="text-gray-400">{error?.message || "الوحدة غير متوفرة"}</p>
         </div>
-        <Footer />
-        <WAButton />
-      </main>
+      </div>
     );
   }
+
 
   const nextImage = () =>
     setActiveImageIndex((prev) => (prev + 1) % property.gallery.length);
@@ -227,7 +198,7 @@ export default function PropertyPage() {
         .custom-scroll::-webkit-scrollbar-thumb { background: #c9a96e55; border-radius: 99px; }
       `}</style>
 
-      <Navbar />
+
 
       {/* ── Breadcrumb ── */}
       <div className="pt-28 pb-0 px-4 max-w-6xl mx-auto">
@@ -730,8 +701,6 @@ export default function PropertyPage() {
         </div>
       </section>
 
-      <Footer />
-      <WAButton />
     </main>
   );
 }

@@ -1,9 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WAButton } from "@/components/WAButton";
+
 import { useProperty } from "@/hooks/useProperty";
 import { idFromSlug } from "@/lib/slug";
 import { ArrowRight, MapPin, Building2, Clock, Utensils, Loader2 } from "lucide-react";
@@ -16,62 +14,52 @@ export default function BookingPage() {
   const { data: property, isLoading, error } = useProperty(propertyId);
 
   if (!slug) {
+  if (!slug) {
     return (
-      <main className="min-h-screen  ">
-        <Navbar />
-        <div className="flex justify-center items-center min-h-[70vh] px-4">
-          <div className="text-center p-8 bg-white rounded-3xl shadow-lg max-w-sm w-full border border-slate-100">
-            <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">🏠</span>
-            </div>
-            <h3 className="text-xl font-black text-slate-800 mb-2">لم يتم العثور على العقار</h3>
-            <p className="text-slate-400 text-sm">معرف العقار مفقود أو غير صالح</p>
+      <div className="flex justify-center items-center min-h-[70vh] px-4">
+        <div className="text-center p-8 bg-white rounded-3xl shadow-lg max-w-sm w-full border border-slate-100">
+          <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span className="text-3xl">🏠</span>
           </div>
+          <h3 className="text-xl font-black text-slate-800 mb-2">لم يتم العثور على العقار</h3>
+          <p className="text-slate-400 text-sm">معرف العقار مفقود أو غير صالح</p>
         </div>
-        <Footer />
-        <WAButton />
-      </main>
+      </div>
     );
+  }
+
   }
 
   if (isLoading) {
     return (
-      <main className="min-h-screen  ">
-        <Navbar />
-        <div className="flex justify-center items-center min-h-[70vh]">
-          <div className="text-center">
-            <Loader2 className="w-10 h-10 animate-spin text-blue-600 mx-auto mb-4" />
-            <p className="text-slate-400 text-sm font-medium">جاري تحميل تفاصيل العقار...</p>
-          </div>
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <div className="text-center">
+          <Loader2 className="w-10 h-10 animate-spin text-blue-600 mx-auto mb-4" />
+          <p className="text-slate-400 text-sm font-medium">جاري تحميل تفاصيل العقار...</p>
         </div>
-        <Footer />
-        <WAButton />
-      </main>
+      </div>
     );
   }
+
 
   if (error || !property) {
     return (
-      <main className="min-h-scree">
-        <Navbar />
-        <div className="flex justify-center items-center min-h-[70vh] px-4">
-          <div className="text-center p-8 bg-white rounded-3xl shadow-lg max-w-sm w-full border border-slate-100">
-            <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">⚠️</span>
-            </div>
-            <h3 className="text-xl font-black text-slate-800 mb-2">خطأ في تحميل العقار</h3>
-            <p className="text-slate-400 text-sm">{error?.message || "لم يتم العثور على العقار"}</p>
+      <div className="flex justify-center items-center min-h-[70vh] px-4">
+        <div className="text-center p-8 bg-white rounded-3xl shadow-lg max-w-sm w-full border border-slate-100">
+          <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span className="text-3xl">⚠️</span>
           </div>
+          <h3 className="text-xl font-black text-slate-800 mb-2">خطأ في تحميل العقار</h3>
+          <p className="text-slate-400 text-sm">{error?.message || "لم يتم العثور على العقار"}</p>
         </div>
-        <Footer />
-        <WAButton />
-      </main>
+      </div>
     );
   }
 
+
   return (
     <main className="min-h-screen " dir="rtl">
-      <Navbar />
+
 
       <section className="pt-28 pb-16 px-4">
         <div className="max-w-5xl mx-auto">
@@ -183,8 +171,6 @@ export default function BookingPage() {
         </div>
       </section>
 
-      <Footer />
-      <WAButton />
-    </main>
+    </>
   );
 }

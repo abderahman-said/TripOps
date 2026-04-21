@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WAButton } from "@/components/WAButton";
+
 
 /* ─────────────────────────────────────────────
    TYPES
@@ -185,14 +183,11 @@ function TripGallery() {
 
 export default function TripPage() {
   return (
-    <main className="min-h-screen bg-white">
-      <Navbar />
+    <>
       <TripHero />
       <TripGallery />
       <TripProgram />
-      {/* <BookingForm /> */}
-      <Footer />
-      <WAButton />
-    </main>
+    </>
   );
 }
+

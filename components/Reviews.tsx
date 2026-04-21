@@ -51,8 +51,8 @@ export function Reviews() {
   }
 
   return (
-    <section   className="py-24 px-4 overflow-hidden" style={{ background: "#f8faff" }}>
-      <div className="max-w-6xl mx-auto">
+    <section   className="pt-10 px-4 overflow-hidden" style={{ background: "#f8faff" }}>
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14"
            >
