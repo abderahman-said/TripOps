@@ -14,8 +14,33 @@ import 'swiper/css/navigation';
 
 export function Reviews() {
   const { data: reviews = [], isLoading } = useReviews();
-  const [ref, inView] = useInView();
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
+  const [swiperInstance, setSwiperInstance] = useState<any>(null);
+
+  const toggleVideo = (id: number) => {
+    const vid = document.getElementById(`review-video-${id}`) as HTMLVideoElement;
+    if (vid) {
+      if (vid.paused) {
+        // Pause other clips if any (optional but good practice)
+        reviews.forEach(r => {
+          if (r.id !== id) {
+            const other = document.getElementById(`review-video-${r.id}`) as HTMLVideoElement;
+            if (other) other.pause();
+          }
+        });
+        
+        vid.muted = false;
+        vid.play();
+        setActiveVideo(id);
+        if (swiperInstance && swiperInstance.autoplay) swiperInstance.autoplay.stop();
+      } else {
+        vid.pause();
+        setActiveVideo(null);
+        if (swiperInstance && swiperInstance.autoplay) swiperInstance.autoplay.start();
+      }
+    }
+  };
+
 
   if (isLoading) {
     return (
@@ -26,7 +51,7 @@ export function Reviews() {
   }
 
   return (
-    <section ref={ref} className="py-24 px-4 overflow-hidden" style={{ background: "#f8faff" }}>
+    <section   className="py-24 px-4 overflow-hidden" style={{ background: "#f8faff" }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14"
@@ -47,7 +72,9 @@ export function Reviews() {
         {/* Swiper Slider */}
         <div className="relative"  >
           <Swiper
+            onSwiper={setSwiperInstance}
             dir="rtl"
+
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
             slidesPerView={1}
@@ -81,6 +108,7 @@ export function Reviews() {
                     )}
                     {r.type === 3 && r.media_url && (
                         <video 
+                          id={`review-video-${r.id}`}
                           src={r.media_url} 
                           className="w-full h-full object-cover" 
                           muted 
@@ -88,7 +116,9 @@ export function Reviews() {
                           playsInline
                           onPlay={() => setActiveVideo(r.id)}
                           onPause={() => setActiveVideo(null)}
+                          onEnded={() => setActiveVideo(null)}
                         />
+
                     )}
                   </div>
 
@@ -127,13 +157,17 @@ export function Reviews() {
                     )}
                     
                     {r.type === 3 && !activeVideo && (
-                        <div className="flex justify-center mt-4 group-hover:scale-110 transition-transform">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 text-yellow-400 animate-pulse cursor-pointer">
+                        <div 
+                          onClick={(e) => { e.stopPropagation(); toggleVideo(r.id); }}
+                          className="flex justify-center mt-4 group-hover:scale-110 transition-transform cursor-pointer relative z-[20]"
+                        >
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 text-yellow-400 animate-pulse">
                               <circle cx="12" cy="12" r="10" />
                               <polygon points="10 8 16 12 10 16 10 8" />
                             </svg>
                         </div>
                     )}
+
 
                   </div>
                 </div>
