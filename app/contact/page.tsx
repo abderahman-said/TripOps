@@ -1,16 +1,53 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WAButton } from "@/components/WAButton";
-import { Phone, MessageCircle, Mail, MapPin, User, AtSign, Send, CheckCircle, Play, Video, Music, Circle } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { 
+  Phone, Mail, MapPin, 
+  Send, Loader2, MessageSquare, 
+} from "lucide-react";
 
+import { useState } from "react";
 
+export default function ContactPage() {
+  const { data: settings, isLoading } = useSiteSettings();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-function ContactHero() {
+  if (isLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
+
+  const contactData = [
+    {
+      icon: <Phone className="w-6 h-6" />,
+      title: "اتصل بنا",
+      value: settings?.phone || "غير متوفر",
+      link: `tel:${settings?.phone}`,
+      color: "bg-blue-500"
+    },
+    {
+      icon: <MessageSquare className="w-6 h-6" />,
+      title: "واتساب",
+      value: settings?.whatsapp || "غير متوفر",
+      link: `https://wa.me/${settings?.whatsapp}`,
+      color: "bg-emerald-500"
+    },
+    {
+      icon: <Mail className="w-6 h-6" />,
+      title: "البريد الإلكتروني",
+      value: settings?.contact?.email || "contact@tripops.com",
+      link: `mailto:${settings?.contact?.email || "contact@tripops.com"}`,
+      color: "bg-amber-500"
+    }
+  ];
+
   return (
-    <section className="relative min-h-[450px] flex items-center justify-center overflow-hidden">
+    <div className="  min-h-screen">
+      {/* Hero Section */}
+      <section className="relative min-h-[450px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1800&q=85" alt="Contact Us" className="w-full h-full object-cover opacity-60" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(8,26,75,.95) 0%, rgba(8,26,75,.6) 55%, rgba(8,26,75,.4) 100%)" }} />
@@ -36,158 +73,106 @@ function ContactHero() {
         </svg>
       </div>
     </section>
-  );
-}
 
-function ContactGrid() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', msg: '' });
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3000);
-  };
-
-  return (
-    <section className="py-24 px-4 bg-[#f8faff]" dir="rtl">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-        {/* Info Column */}
-        <div className="space-y-8 animate-floatUp" style={{ animationDelay: '0.2s' }}>
-          <div className="mb-10">
-            <h2 className="text-[#081a4b] font-black text-4xl mb-4">اتصل بنا <span className="gold-text">مباشرة</span></h2>
-            <p className="text-gray-500 leading-relaxed max-w-md">يمكنك التواصل معنا عبر الهاتف، الواتساب أو زيارة مكتبنا. نحن هنا لخدمتكم!</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              { title: "ارقام الهاتف", val: "+20 106 945 1177", val2: "+20 100 328 7333", icon: <Phone className="w-6 h-6" />, color: "#F59E0B" },
-              { title: "واتساب", val: "+20 106 945 1177", icon: <MessageCircle className="w-6 h-6" />, color: "#25D366", link: "https://wa.me/201069451177" },
-              { title: "البريد الإلكتروني", val: "info@elrahman-tours.com", icon: <Mail className="w-6 h-6" />, color: "#3B82F6" },
-              { title: "العنوان", val: "القاهرة، مدينة نصر، شارع عباس العقاد", icon: <MapPin className="w-6 h-6" />, color: "#EF4444" }
-            ].map((card, i) => (
-              <div key={i} className="stat-card glass rounded-3xl p-6 transition-all hover:scale-105"
-                style={{
-                  background: 'white',
-                  boxShadow: '0 10px 30px rgba(8,26,75,0.06)',
-                  border: '1px solid rgba(8,26,75,0.05)'
-                }}>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
-                  style={{ background: `${card.color}15`, color: card.color }}>
-                  {card.icon}
+      <div className="max-w-7xl mx-auto px-5  py-20 relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Quick Contact Cards */}
+          <div className="lg:col-span-1 space-y-6">
+            {contactData.map((item, i) => (
+              <a 
+                key={i}
+                href={item.link}
+                className="block p-6 bg-white rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all group"
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`${item.color} p-4 rounded-2xl text-white shadow-lg shadow-blue-500/20`}>
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider">{item.title}</h3>
+                    <p className="text-[#081a4b] font-black text-lg dir-ltr">{item.value}</p>
+                  </div>
                 </div>
-                <h3 className="font-bold text-[#081a4b] mb-2">{card.title}</h3>
-                <p className="text-gray-500 text-sm mb-1">{card.val}</p>
-                {card.val2 && <p className="text-gray-500 text-sm">{card.val2}</p>}
-                {card.link && <a href={card.link} className="text-xs font-bold mt-3 block" style={{ color: card.color }}>تواصل الآن ←</a>}
-              </div>
+              </a>
             ))}
-          </div>
 
-          {/* Socials Card */}
-          <div className="glass rounded-3xl p-8" style={{ background: 'linear-gradient(135deg,#081a4b,#1565C0)', color: 'white' }}>
-            <h3 className="font-black text-xl mb-4">تابعنا على السوشيال ميديا</h3>
-            <div className="flex gap-4">
-              {["f", "◎", "▶", "♪"].map((ic, i) => (
-                <button key={ic} className="w-11 h-11 bg-white/5 rounded-xl flex items-center justify-center text-sm font-bold glass transition-all hover:scale-110 hover:bg-yellow-400 hover:text-gray-900 border-none">
-                  {ic}
-                </button>
-              ))}
+            {/* Social Media Card */}
+            <div className="p-8 bg-white rounded-3xl shadow-sm border border-slate-100">
+              <h3 className="text-[#081a4b] font-black text-xl mb-6">تابعنا على</h3>
+              <div className="flex gap-4">
+                {settings?.social_media?.facebook && (
+                  <a href={settings.social_media.facebook} className="p-4 bg-slate-50 rounded-2xl hover:bg-blue-600 hover:text-white transition-all">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                  </a>
+                )}
+                {settings?.social_media?.instagram && (
+                  <a href={settings.social_media.instagram} className="p-4 bg-slate-50 rounded-2xl hover:bg-pink-600 hover:text-white transition-all">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                  </a>
+                )}
+
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Form Column */}
-        <div className="animate-floatUp" style={{ animationDelay: '0.4s' }}>
-          <div className="glass-dark rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden"
-            style={{ background: 'rgba(8,26,75,0.98)', border: '1px solid rgba(255,255,255,0.1)' }}>
-            <div className="absolute inset-0 stars-bg opacity-30" />
-
-            <form onSubmit={handleSubmit} className="relative z-10 space-y-5">
-              <h3 className="text-white font-black text-2xl mb-6">ارسل لنا <span className="shimmer-text">رسالة</span></h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="relative">
-                  <User className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/30" />
-                  <input type="text" placeholder="الاسم بالكامل" required
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 pr-12 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
+          {/* Contact Form */}
+          <div className="lg:col-span-2 bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-8 md:p-12">
+            <h2 className="text-3xl font-black text-[#081a4b] mb-8">أرسل لنا رسالة</h2>
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-500 mr-2">الاسم بالكامل</label>
+                  <input 
+                    type="text" 
+                    placeholder="مثال: أحمد محمد"
+                    className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all outline-none" 
+                  />
                 </div>
-                <div className="relative">
-                  <AtSign className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/30" />
-                  <input type="email" placeholder="البريد الإلكتروني" required
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 pr-12 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-500 mr-2">رقم الهاتف</label>
+                  <input 
+                    type="tel" 
+                    placeholder="01xxxxxxxxx"
+                    className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all outline-none" 
+                  />
                 </div>
               </div>
-
-              <div className="relative">
-                <Phone className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/30" />
-                <input type="tel" placeholder="رقم الهاتف"
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 pr-12 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-500 mr-2">الموضوع</label>
+                <input 
+                  type="text" 
+                  placeholder="كيف يمكننا مساعدتك؟"
+                  className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all outline-none" 
+                />
               </div>
-
-              <select className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white/50 text-sm outline-none focus:border-yellow-400 transition-all appearance-none">
-                <option>نوع الاستفسار</option>
-                <option>حجز رحلة داخلية</option>
-                <option>حجز عمرة/حج</option>
-                <option>حجز طيران</option>
-                <option>استفسار عام</option>
-              </select>
-
-              <textarea rows={4} placeholder="رسالتك ..." required
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all resize-none"></textarea>
-
-              <button type="submit" className="w-full py-5 rounded-2xl font-black text-white btn-shine transition-all hover:scale-[1.02] flex items-center justify-center gap-3"
-                style={{ background: sent ? '#34D399' : 'linear-gradient(135deg,#F59E0B,#D97706)', boxShadow: '0 8px 25px rgba(245,158,11,0.3)' }}>
-                {sent ? (
-                  <>
-                    <CheckCircle className="w-5 h-5" />
-                    تم الإرسال بنجاح
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    ارسل الرسالة الآن
-                  </>
-                )}
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-500 mr-2">الرسالة</label>
+                <textarea 
+                  rows={4} 
+                  placeholder="اكتب رسالتك هنا..."
+                  className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all outline-none resize-none" 
+                />
+              </div>
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full md:w-auto px-12 py-5 bg-[#081a4b] text-white font-black rounded-2xl hover:bg-blue-600 transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-900/20"
+              >
+                {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                إرسال الرسالة
               </button>
             </form>
           </div>
+
         </div>
-
       </div>
-    </section>
-  );
-}
-
-function MapSection() {
-  return (
-    <section className="h-[450px] relative overflow-hidden grayscale contrast-[1.2] hover:grayscale-0 transition-all duration-700">
-      <iframe
-        title="Map"
-        width="100%"
-        height="100%"
-        frameBorder="0"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110502.60385043812!2d31.188423405786415!3d30.059483320140226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fa60b21beeb%3A0x79dfb296efbc603c!2z2KfZhNmC2KfZh9ix2KnYjCDZhdit2KfZgdi42Kkg2KfZhNmC2KfZh9ix2KnigKw!5e0!3m2!1sar!2seg!4v1700000000000"
-        allowFullScreen
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade">
-      </iframe>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(248,250,255,0.4) 0%, transparent 15%, transparent 85%, rgba(248,250,255,0.4) 100%)' }} />
-    </section>
-  );
-}
-
-
-export default function ContactPage() {
-  return (
-    <main className="bg-[#f8faff] min-h-screen">
-      <Navbar />
-      <ContactHero />
-      <ContactGrid />
-      <MapSection />
-      <Footer />
-      <WAButton />
-    </main>
+    </div>
   );
 }

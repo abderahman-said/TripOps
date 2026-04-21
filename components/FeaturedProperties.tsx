@@ -2,7 +2,14 @@
 
 import { useFeaturedProperties } from "@/hooks/useFeaturedProperties";
 import { useInView } from "@/hooks/useInView";
-import { ChevronRight, MapPin } from "lucide-react";
+import { ChevronRight, MapPin, ArrowRight, ArrowLeft } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export function FeaturedProperties() {
   const [ref, inView] = useInView();
@@ -13,9 +20,9 @@ export function FeaturedProperties() {
   }
 
   return (
-    <section ref={ref} className="py-20 px-4" style={{ background: "#f8faff" }}>
+    <section ref={ref} className="py-20 px-4 overflow-hidden" style={{ background: "#f8faff" }}>
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex items-end justify-between mb-12 px-4" style={{ 
+        <div className="flex items-end justify-between px-4 mb-8" style={{ 
           animation: inView ? "floatUp .8s ease both" : "none", 
           opacity: inView ? 1 : 0 
         }}>
@@ -27,52 +34,92 @@ export function FeaturedProperties() {
               أفضل الاختيارات
             </h2>
           </div>
-        </div>
-
-        <div className="relative">
-          <div 
-            className="flex gap-6 overflow-x-auto pb-6 hide-scrollbar"
-            style={{ animation: inView ? "floatUp .8s ease .2s both" : "none", opacity: inView ? 1 : 0 }}
-          >
-            {isLoading ? (
-              Array(4).fill(0).map((_, i) => (
-                <div key={i} className="flex-shrink-0 w-80 h-52 rounded-3xl bg-gray-200 animate-pulse" />
-              ))
-            ) : (
-              properties.map((property, i) => (
-                <a
-                  key={property.id}
-                  href={`/properties/${property.id}`}
-                  className="flex-shrink-0 w-80 h-52 rounded-3xl overflow-hidden group relative shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
-                  style={{ animation: inView ? `floatUp .6s ease ${.2 + i * .1}s both` : "none" }}
-                >
-                  <img
-                    src={property.image}
-                    alt={property.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center gap-2 text-white/70 text-xs mb-2">
-                      <MapPin className="w-3 h-3" />
-                      <span>{property.city.name}</span>
-                      <span className="mx-1">•</span>
-                      <span>{property.type.label}</span>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-white font-black text-xl">{property.name}</h3>
-                      <ChevronRight className="w-5 h-5 text-white translate-x-0 group-hover:translate-x-2 transition-transform" />
-                    </div>
-                  </div>
-                </a>
-              ))
-            )}
+          
+          <div className="flex gap-3 mb-4">
+            <button className="swiper-prev-btn w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-[#081a4b] hover:bg-[#081a4b] hover:text-white transition-all duration-300 cursor-pointer shadow-sm">
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <button className="swiper-next-btn w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-[#081a4b] hover:bg-[#081a4b] hover:text-white transition-all duration-300 cursor-pointer shadow-sm">
+              <ArrowLeft className="w-5 h-5" />
+            </button>
           </div>
         </div>
+
+        <div 
+          className="px-4"
+          style={{ 
+            animation: inView ? "floatUp .8s ease .2s both" : "none", 
+            opacity: inView ? 1 : 0 
+          }}
+        >
+          {isLoading ? (
+            <div className="flex gap-6">
+              {Array(4).fill(0).map((_, i) => (
+                <div key={i} className="flex-shrink-0 w-80 h-[300px] rounded-3xl bg-gray-200 animate-pulse" />
+              ))}
+            </div>
+          ) : (
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={24}
+              slidesPerView={1}
+              navigation={{
+                prevEl: ".swiper-prev-btn",
+                nextEl: ".swiper-next-btn",
+              }}
+              pagination={{ clickable: true, dynamicBullets: true }}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 },
+              }}
+              className="pb-12"
+            >
+              {properties.map((property, i) => (
+                <SwiperSlide key={property.id}>
+                  <a
+                    href={`/properties/${property.id}`}
+                    className="block group relative h-[400px] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+                  >
+                    <img
+                      src={property.cover}
+                      alt={property.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                    
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-right">
+                      <div className="flex items-center justify-end gap-2 text-white/70 text-xs mb-2">
+                        <span>{property.type.label}</span>
+                        <span className="mx-1">•</span>
+                        <span>{property.city.name}</span>
+                        <MapPin className="w-3 h-3" />
+                      </div>
+                      
+                      <div className="flex items-center justify-between flex-row-reverse">
+                        <h3 className="text-white font-black text-xl">{property.name}</h3>
+                        <ChevronRight className="w-5 h-5 scale-x-[-1] text-white opacity-0 group-hover:opacity-100 group-hover:-translate-x-2 transition-all duration-300" />
+                      </div>
+                    </div>
+                  </a>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
+        </div>
       </div>
+
+      <style jsx global>{`
+        .swiper-pagination-bullet-active {
+          background: #081a4b !important;
+        }
+        .swiper-button-disabled {
+          opacity: 0.5;
+          cursor: not-allowed !important;
+        }
+      `}</style>
     </section>
   );
 }

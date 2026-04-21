@@ -45,7 +45,7 @@ export default function PropertyPage() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen" style={{ background: "#f7f5f0" }}>
+      <main className="min-h-screen">
         <Navbar />
         <div className="flex justify-center items-center min-h-[70vh]">
           <div className="text-center space-y-4">

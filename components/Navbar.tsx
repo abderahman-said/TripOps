@@ -2,13 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { 
-  Share2, 
-  Image, 
-  Monitor, 
-  ChevronDown, 
-  Plane 
+import {
+  Share2,
+  Image,
+  Monitor,
+  ChevronDown,
+  Plane,
+  Youtube
 } from "lucide-react";
+
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 interface NavItem {
   label: string;
@@ -19,66 +22,55 @@ interface NavItem {
 const NAV: NavItem[] = [
   { label: "الرئيسية", href: "/", dd: null },
   { label: "كل الرحلات", href: "/search", dd: null },
-  { label: "الرحلات الداخلية", href: "/search?cat=domestic", dd: [
-      { label: "شرم الشيخ", href: "/trips/sharm-el-sheikh" },
-      { label: "الغردقة", href: "/search?query=الغردقة" },
-      { label: "الأقصر وأسوان", href: "/search?query=الأقصر" },
-      { label: "دهب", href: "/search?query=دهب" },
-      { label: "مرسى مطروح", href: "/search?query=مطروح" },
-    ] 
-  },
-  { label: "الرحلات الدينية", href: "/search?cat=religious", dd: [
-      { label: "العمرة", href: "/search?query=عمرة" },
-      { label: "الحج", href: "/search?query=حج" },
-      { label: "زيارة المدينة", href: "/search?query=المدينة" },
-    ] 
-  },
+  { label: "من نحن", href: "/about", dd: null },
   { label: "تواصل معنا", href: "/contact", dd: null },
 ];
 
-const SOCIAL_LIST = [
-  {
-    key: "Facebook",
-    href: "#",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-      </svg>
-    ),
-  },
-  {
-    key: "Instagram",
-    href: "#",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-        <circle cx="12" cy="12" r="4" />
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-  },
-  {
-    key: "YouTube",
-    href: "#",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-        <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
-      </svg>
-    ),
-  },
-];
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const { data: settings } = useSiteSettings();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  const SOCIAL_LIST = [
+    {
+      key: "Facebook",
+      href: settings?.social_media.facebook || "#",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+        </svg>
+      ),
+    },
+    {
+      key: "Instagram",
+      href: settings?.social_media.instagram || "#",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+        </svg>
+      ),
+    },
+
+    {
+      key: "TikTok",
+      href: settings?.social_media.tiktok || "#",
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.6-4.12-1.31a6.417 6.417 0 01-1.87-1.54v8.83c.03 2.15-.44 4.39-1.78 6.03-1.33 1.64-3.32 2.71-5.4 3.01-2.48.36-5.1-.21-7.07-1.75-2.05-1.61-3.21-4.13-2.98-6.72.19-2.22 1.34-4.39 3.22-5.59 1.83-1.18 4.16-1.57 6.27-1.01v4.11c-1.2-.56-2.61-.59-4.04-.15-.81.25-1.56.73-2.07 1.4-1.34 1.74-1.15 4.63.43 6.14 1.42 1.37 3.86 1.54 5.48.4 1.11-.78 1.76-2.14 1.71-3.52V.02z" />
+        </svg>
+      ),
+    },
+  ];
 
   return (
     <header
@@ -95,18 +87,17 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-5 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group select-none">
-          <div className="relative w-11 h-11">
-            <div className="w-11 h-11 rounded-xl flex items-center justify-center font-black text-white text-lg shadow-lg relative z-10 transition-transform duration-300 group-hover:scale-105"
-              style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)" }}>
-              ر
-            </div>
-            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-60 transition-opacity duration-400 blur-lg"
-              style={{ background: "#F59E0B" }} />
-          </div>
-          <div>
-            <p className="text-white font-black text-[15px] leading-tight">الرحمن تورز</p>
-            <p className="text-yellow-400/80 text-[9px] tracking-[0.2em] font-medium">AL-RAHMAAN TOURS</p>
-          </div>
+            {settings?.logo ? (
+              <div className="w-20 h-12 rounded-xl overflow-hidden shadow-lg relative z-10 transition-transform duration-300 group-hover:scale-105 bg-white p-1">
+                <img src={settings.logo} alt={settings.name} className="w-full h-full object-contain" />
+              </div>
+            ) : (
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center font-black text-white text-lg shadow-lg relative z-10 transition-transform duration-300 group-hover:scale-105"
+                style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)" }}>
+                {settings?.name ? settings.name.charAt(0).toUpperCase() : "."}
+              </div>
+            )}
+          
         </Link>
 
         {/* Desktop nav */}
@@ -142,15 +133,15 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           {/* Social icons */}
           <div className="hidden md:flex gap-1.5">
-            {SOCIAL_LIST.map(({ key, icon ,href }) => (
-                <a key={key} href={href} aria-label={key}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-white/60 hover:text-yellow-400 transition-all duration-200 hover:scale-110"
-                  style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}>
-    {icon}
-                </a>
-              ))}
+            {SOCIAL_LIST.map(({ key, icon, href }) => (
+              <a key={key} href={href} aria-label={key} target="_blank" rel="noopener noreferrer"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-white/60 hover:text-yellow-400 transition-all duration-200 hover:scale-110"
+                style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                {icon}
+              </a>
+            ))}
           </div>
-          
+
           {/* CTA */}
           <a href="/contact"
             className="hidden md:flex btn-shine items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-black text-white transition-all duration-300 hover:scale-105"

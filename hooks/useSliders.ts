@@ -22,7 +22,7 @@ interface SlidersResponse {
 async function fetchSliders(): Promise<Slider[]> {
   try {
     const response = await axiosInstance.get<SlidersResponse>("/sliders");
-    
+
     if (!response.data.status) {
       throw new Error(response.data.message || "Failed to fetch sliders");
     }

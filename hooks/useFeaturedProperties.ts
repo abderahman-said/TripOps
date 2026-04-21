@@ -12,7 +12,7 @@ interface FeaturedProperty {
     id: number;
     name: string;
   };
-  image: string;
+  cover: string;
 }
 
 interface FeaturedPropertiesResponse {
