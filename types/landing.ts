@@ -22,7 +22,7 @@ export interface Destination {
 }
 
 export interface Feature {
-  emoji: string;
+  icon: string;
   stat: string;
   title: string;
   desc: string;

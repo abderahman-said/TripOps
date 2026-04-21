@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cairo, Tajawal } from "next/font/google";
 import "./globals.css";
 import 'react-calendar/dist/Calendar.css';
+import { QueryProvider } from "@/providers/QueryProvider";
 
 const cairo = Cairo({
   variable: "--font-cairo",
@@ -32,7 +33,9 @@ export default function RootLayout({
       className={`${cairo.variable} ${tajawal.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" style={{ fontFamily: "var(--font-cairo), var(--font-tajawal), sans-serif" }}>
-        {children}
+        <QueryProvider>
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );

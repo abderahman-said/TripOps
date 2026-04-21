@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WAButton } from "@/components/WAButton";
+import { Phone, MessageCircle, Mail, MapPin, User, AtSign, Send, CheckCircle, Play, Video, Music, Circle } from "lucide-react";
 
 
 
@@ -61,10 +62,10 @@ function ContactGrid() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              { title: "ارقام الهاتف", val: "+20 106 945 1177", val2: "+20 100 328 7333", icon: "📞", color: "#F59E0B" },
-              { title: "واتساب", val: "+20 106 945 1177", icon: "💬", color: "#25D366", link: "https://wa.me/201069451177" },
-              { title: "البريد الإلكتروني", val: "info@elrahman-tours.com", icon: "📧", color: "#3B82F6" },
-              { title: "العنوان", val: "القاهرة، مدينة نصر، شارع عباس العقاد", icon: "📍", color: "#EF4444" }
+              { title: "ارقام الهاتف", val: "+20 106 945 1177", val2: "+20 100 328 7333", icon: <Phone className="w-6 h-6" />, color: "#F59E0B" },
+              { title: "واتساب", val: "+20 106 945 1177", icon: <MessageCircle className="w-6 h-6" />, color: "#25D366", link: "https://wa.me/201069451177" },
+              { title: "البريد الإلكتروني", val: "info@elrahman-tours.com", icon: <Mail className="w-6 h-6" />, color: "#3B82F6" },
+              { title: "العنوان", val: "القاهرة، مدينة نصر، شارع عباس العقاد", icon: <MapPin className="w-6 h-6" />, color: "#EF4444" }
             ].map((card, i) => (
               <div key={i} className="stat-card glass rounded-3xl p-6 transition-all hover:scale-105"
                 style={{
@@ -72,7 +73,7 @@ function ContactGrid() {
                   boxShadow: '0 10px 30px rgba(8,26,75,0.06)',
                   border: '1px solid rgba(8,26,75,0.05)'
                 }}>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4"
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
                   style={{ background: `${card.color}15`, color: card.color }}>
                   {card.icon}
                 </div>
@@ -107,14 +108,23 @@ function ContactGrid() {
               <h3 className="text-white font-black text-2xl mb-6">ارسل لنا <span className="shimmer-text">رسالة</span></h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder="الاسم بالكامل" required
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
-                <input type="email" placeholder="البريد الإلكتروني" required
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
+                <div className="relative">
+                  <User className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/30" />
+                  <input type="text" placeholder="الاسم بالكامل" required
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 pr-12 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
+                </div>
+                <div className="relative">
+                  <AtSign className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/30" />
+                  <input type="email" placeholder="البريد الإلكتروني" required
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 pr-12 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
+                </div>
               </div>
 
-              <input type="tel" placeholder="رقم الهاتف"
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
+              <div className="relative">
+                <Phone className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/30" />
+                <input type="tel" placeholder="رقم الهاتف"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 pr-12 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all" />
+              </div>
 
               <select className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white/50 text-sm outline-none focus:border-yellow-400 transition-all appearance-none">
                 <option>نوع الاستفسار</option>
@@ -127,9 +137,19 @@ function ContactGrid() {
               <textarea rows={4} placeholder="رسالتك ..." required
                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 text-sm outline-none focus:border-yellow-400 focus:bg-white/10 transition-all resize-none"></textarea>
 
-              <button type="submit" className="w-full py-5 rounded-2xl font-black text-white btn-shine transition-all hover:scale-[1.02]"
+              <button type="submit" className="w-full py-5 rounded-2xl font-black text-white btn-shine transition-all hover:scale-[1.02] flex items-center justify-center gap-3"
                 style={{ background: sent ? '#34D399' : 'linear-gradient(135deg,#F59E0B,#D97706)', boxShadow: '0 8px 25px rgba(245,158,11,0.3)' }}>
-                {sent ? "✓ تم الإرسال بنجاح" : "🚀 ارسل الرسالة الآن"}
+                {sent ? (
+                  <>
+                    <CheckCircle className="w-5 h-5" />
+                    تم الإرسال بنجاح
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    ارسل الرسالة الآن
+                  </>
+                )}
               </button>
             </form>
           </div>

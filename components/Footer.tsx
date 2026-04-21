@@ -1,5 +1,7 @@
 "use client";
 
+import { Phone, Share2, Image, Monitor, Music } from "lucide-react";
+
 interface FooterColumn {
   title: string;
   items: { label: string; href: string }[];
@@ -56,15 +58,15 @@ export function Footer() {
             {/* Socials */}
             <div className="flex gap-2">
               {[
-                { ic: "f", label: "Facebook" },
-                { ic: "◎", label: "Instagram" },
-                { ic: "♪", label: "TikTok" },
-                { ic: "▶", label: "YouTube" },
-              ].map(s => (
+                { Icon: Share2, label: "Facebook" },
+                { Icon: Image, label: "Instagram" },
+                { Icon: Music, label: "TikTok" },
+                { Icon: Monitor, label: "YouTube" },
+              ].map((s) => (
                 <a key={s.label} href="#" aria-label={s.label}
-                  className="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold transition-all duration-200 hover:scale-110"
+                  className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110"
                   style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(147,197,253,.6)" }}>
-                  {s.ic}
+                  <s.Icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
@@ -91,12 +93,10 @@ export function Footer() {
           </p>
           <div className="flex flex-wrap items-center gap-4">
             {["+20 106 945 1177", "+20 100 328 7333"].map(n => (
-              <a key={n} href={`tel:${n.replace(/\s/g, "")}`}
+               <a key={n} href={`tel:${n.replace(/\s/g, "")}`}
                 className="flex items-center gap-1.5 text-xs transition-colors duration-200 hover:text-yellow-400"
                 style={{ color: "rgba(147,197,253,.5)" }}>
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.674 2.695a2 2 0 01-.45 1.955L8.5 10.12a11.065 11.065 0 005.38 5.38l.955-.948a2 2 0 011.955-.45l2.695.674A2 2 0 0121 16.72V19a2 2 0 01-2 2h-1C9.163 21 3 14.837 3 7V5z" />
-                </svg>
+                <Phone className="w-3 h-3" />
                 {n}
               </a>
             ))}

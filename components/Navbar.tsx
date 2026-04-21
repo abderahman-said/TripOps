@@ -1,6 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { 
+  Share2, 
+  Image, 
+  Monitor, 
+  ChevronDown, 
+  Plane 
+} from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -28,34 +36,37 @@ const NAV: NavItem[] = [
   { label: "تواصل معنا", href: "/contact", dd: null },
 ];
 
-const SocialIcons = {
-  Facebook: () => (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
-    </svg>
-  ),
-  Instagram: () => (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-    </svg>
-  ),
-  YouTube: () => (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-      <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-    </svg>
-  ),
-  TikTok: () => (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/>
-    </svg>
-  ),
-};
-
 const SOCIAL_LIST = [
-  { key: "Facebook",  Icon: SocialIcons.Facebook,  href: "#" },
-  { key: "Instagram", Icon: SocialIcons.Instagram, href: "#" },
-  { key: "YouTube",   Icon: SocialIcons.YouTube,   href: "#" },
-  { key: "TikTok",    Icon: SocialIcons.TikTok,    href: "#" },
+  {
+    key: "Facebook",
+    href: "#",
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+      </svg>
+    ),
+  },
+  {
+    key: "Instagram",
+    href: "#",
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
+  {
+    key: "YouTube",
+    href: "#",
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+        <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+      </svg>
+    ),
+  },
 ];
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -83,7 +94,7 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-5 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3 group select-none">
+        <Link href="/" className="flex items-center gap-3 group select-none">
           <div className="relative w-11 h-11">
             <div className="w-11 h-11 rounded-xl flex items-center justify-center font-black text-white text-lg shadow-lg relative z-10 transition-transform duration-300 group-hover:scale-105"
               style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)" }}>
@@ -96,7 +107,7 @@ export function Navbar() {
             <p className="text-white font-black text-[15px] leading-tight">الرحمن تورز</p>
             <p className="text-yellow-400/80 text-[9px] tracking-[0.2em] font-medium">AL-RAHMAAN TOURS</p>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-0.5">
@@ -108,11 +119,8 @@ export function Navbar() {
                 className="nav-pill flex items-center gap-1.5 px-4 py-2 rounded-xl text-white/85 hover:text-white hover:bg-white/10 text-[13.5px] font-semibold transition-all duration-200">
                 {item.label}
                 {item.dd && (
-                  <svg className="w-3 h-3 opacity-60 transition-transform duration-200"
-                    style={{ transform: hovered === item.label ? "rotate(180deg)" : "none" }}
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <ChevronDown className="w-3 h-3 opacity-60 transition-transform duration-200"
+                    style={{ transform: hovered === item.label ? "rotate(180deg)" : "none" }} />
                 )}
               </a>
               {item.dd && hovered === item.label && (
@@ -134,19 +142,20 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           {/* Social icons */}
           <div className="hidden md:flex gap-1.5">
-            {SOCIAL_LIST.map(({ key, Icon }) => (
-                <a key={key} href="#" aria-label={key}
+            {SOCIAL_LIST.map(({ key, icon ,href }) => (
+                <a key={key} href={href} aria-label={key}
                   className="w-8 h-8 rounded-lg flex items-center justify-center text-white/60 hover:text-yellow-400 transition-all duration-200 hover:scale-110"
                   style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}>
-                  <Icon />
+    {icon}
                 </a>
               ))}
           </div>
+          
           {/* CTA */}
           <a href="/contact"
             className="hidden md:flex btn-shine items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-black text-white transition-all duration-300 hover:scale-105"
             style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)", boxShadow: "0 4px 18px rgba(245,158,11,0.45)" }}>
-            ✈ احجز الآن
+            <Plane className="w-4 h-4" /> احجز الآن
           </a>
           {/* Hamburger */}
           <button onClick={() => setMobileOpen(p => !p)}
@@ -178,10 +187,7 @@ export function Navbar() {
                 {item.dd && (
                   <button onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
                     className="p-3 text-white/50 hover:text-white transition-colors">
-                    <svg className={`w-4 h-4 transition-transform duration-300 ${mobileExpanded === item.label ? "rotate-180" : ""}`}
-                      fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${mobileExpanded === item.label ? "rotate-180" : ""}`} />
                   </button>
                 )}
               </div>
@@ -198,9 +204,9 @@ export function Navbar() {
             </div>
           ))}
           <a href="/contact" onClick={() => setMobileOpen(false)}
-            className="mt-2 text-center py-3 rounded-xl text-sm font-black text-white"
+            className="mt-2 text-center flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-black text-white"
             style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)" }}>
-            ✈ احجز الآن
+            <Plane className="w-4 h-4" /> احجز الآن
           </a>
         </div>
       </div>

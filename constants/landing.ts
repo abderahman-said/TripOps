@@ -71,7 +71,7 @@ export const DESTINATIONS: Destination[] = [
 
 export const FEATURES: Feature[] = [
   {
-    emoji: "🎧",
+    icon: "headphones",
     stat: "24/7",
     title: "خدمة عملاء متواصلة",
     desc: "فريقنا متواجد دائمًا لمساعدتك في أي وقت، يوفر لك الدعم السريع والاهتمام الكامل.",
@@ -79,7 +79,7 @@ export const FEATURES: Feature[] = [
     color: "#06B6D4",
   },
   {
-    emoji: "🌍",
+    icon: "map",
     stat: "50+",
     title: "وجهة سياحية",
     desc: "اختيارات متنوعة من الرحلات تناسب كل الأذواق من رحلات داخلية وخارجية إلى برامج دينية.",
@@ -87,7 +87,7 @@ export const FEATURES: Feature[] = [
     color: "#F59E0B",
   },
   {
-    emoji: "🏨",
+    icon: "building",
     stat: "5★",
     title: "فنادق وخدمات فاخرة",
     desc: "نختار أرقى الفنادق وأفضل الخدمات مع نقل منظم لضمان راحتك التامة طوال رحلتك.",
@@ -97,10 +97,10 @@ export const FEATURES: Feature[] = [
 ];
 
 export const STATS: Stat[] = [
-  { num: "15,000+", label: "رحلة ناجحة", icon: "✈️" },
-  { num: "98%", label: "رضا العملاء", icon: "⭐" },
-  { num: "12+", label: "سنة خبرة", icon: "🏆" },
-  { num: "50+", label: "وجهة سياحية", icon: "🌍" },
+  { num: "15,000+", label: "رحلة ناجحة", icon: "plane" },
+  { num: "98%", label: "رضا العملاء", icon: "star" },
+  { num: "12+", label: "سنة خبرة", icon: "trophy" },
+  { num: "50+", label: "وجهة سياحية", icon: "globe" },
 ];
 
 export const REVIEWS: Review[] = [

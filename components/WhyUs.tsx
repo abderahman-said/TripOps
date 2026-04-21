@@ -2,6 +2,7 @@
 
 import { FEATURES } from "@/constants/landing";
 import { useInView } from "@/hooks/useInView";
+import { Headphones, Map, Building, CheckCircle } from "lucide-react";
 
 export function WhyUs() {
   const [ref, inView] = useInView();
@@ -34,7 +35,10 @@ export function WhyUs() {
 
         {/* Enhanced Feature Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {FEATURES.map((f, i) => (
+          {FEATURES.map((f, i) => {
+          const iconMap: { [key: string]: React.FC<{ className?: string }> } = { headphones: Headphones, map: Map, building: Building };
+          const Icon = iconMap[f.icon];
+          return (
             <div key={i} className="feature-card-premium group relative bg-white/5 backdrop-blur-xl rounded-[2.5rem] p-10 border border-white/10 hover:border-white/20 transition-all duration-500 overflow-hidden"
               style={{
                 animation: inView ? `floatUp .8s ease ${.2 + i * .15}s both` : "none",
@@ -45,11 +49,13 @@ export function WhyUs() {
               <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[80px] opacity-0 group-hover:opacity-30 transition-opacity duration-700"
                 style={{ background: f.color }} />
 
-              {/* Icon & Stat Header */}
+               {/* Icon & Stat Header */}
               <div className="flex items-start justify-between mb-8">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl shadow-inner transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
                   style={{ background: `${f.color}15`, border: `1px solid ${f.color}30` }}>
-                  {f.emoji}
+                  <div style={{ color: f.color }}>
+                  <Icon className="w-8 h-8" />
+                </div>
                 </div>
                 <div className="text-right">
                    <p className="text-5xl font-black italic opacity-10 absolute top-8 left-8 select-none" style={{ color: f.color }}>{f.stat}</p>
@@ -65,10 +71,7 @@ export function WhyUs() {
               <div className="space-y-4">
                 {f.points.map((p, j) => (
                   <div key={j} className="flex items-center gap-4 group/item">
-                    <div className="w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-black transition-all duration-300 group-hover/item:scale-110"
-                      style={{ background: `${f.color}20`, color: f.color, border: `1px solid ${f.color}40` }}>
-                      ✓
-                    </div>
+                    <CheckCircle className="w-5 h-5 transition-all duration-300 group-hover/item:scale-110" style={{ color: f.color }} />
                     <span className="text-sm font-medium transition-colors duration-300 group-hover/item:text-white" style={{ color: "rgba(255,255,255,.6)" }}>
                       {p}
                     </span>
@@ -77,9 +80,10 @@ export function WhyUs() {
               </div>
 
               {/* Bottom Decoration */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-white/10 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
             </div>
-          ))}
+          );
+        })}
         </div>
       </div>
     </section>
